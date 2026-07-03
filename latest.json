@@ -1,5 +1,6 @@
 {
-  "version": "0.2.0",
-  "url": "https://drive.google.com/uc?export=download&id=1DkaSQ5PM2Q9eSoxaNpendpD9cUF--6Oa",
-  "notes": "サイドバー伸縮・既定フォント縮小・Mロゴのアプリアイコン・多重起動ガード・PJ案件名の入力UI"
+  "version": "0.3.0",
+  "url": "https://drive.google.com/uc?export=download&id=1QWSaSYCf11Ow1fTVlDtueyp5y8EzcCMx",
+  "sha256": "c6e8001362f9c35c672236bc8672efd21c07e521ac75e3e553ded0a9a4e3b4ed",
+  "notes": "セキュリティ強化（OAuth PKCE / SSRF対策 / 鍵マスク / sandbox・CSP / ファイル権限）と、UX改善（サイドバー伸縮・アイコン化 / 削除の即時反映 / 複数選択バーのガタつき解消 / フォント調整 / Mロゴアイコン）。"
 }

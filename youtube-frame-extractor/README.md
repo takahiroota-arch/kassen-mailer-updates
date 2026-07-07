@@ -34,7 +34,14 @@ python3 yt_frames.py URL --scene 0.4
 
 # 30〜60 秒の範囲だけを対象に、1 秒ごと
 python3 yt_frames.py URL --interval 1 --start 30 --end 60
+
+# フレーム抽出せず、動画そのものをダウンロードするだけ
+python3 yt_frames.py URL --download-only
+python3 yt_frames.py URL -d --max-height 1080   # 1080p 以下でDLだけ
 ```
+
+`--download-only`（`-d`）を付けると、フレーム抽出は行わず動画ファイルを（動画タイトルのファイル名で）保存します。
+`--max-height` で解像度も指定できます。
 
 抜き出した画像は既定で `./frames/` に保存されます（`-o/--output-dir` で変更可）。
 
@@ -54,6 +61,7 @@ python3 yt_frames.py URL --interval 1 --start 30 --end 60
 | `--format {jpg,png}` | 画像フォーマット | jpg |
 | `--quality 0-100` | 画質（大きいほど高画質） | 90 |
 | `--keep-video` | ダウンロードした動画を削除せず残す | 削除する |
+| `-d, --download-only` | フレーム抽出せず動画のダウンロードだけ行う | オフ |
 
 `--interval` / `--fps` / `--timestamps` / `--scene` はいずれか 1 つだけ指定できます（未指定なら `--interval 5`）。
 

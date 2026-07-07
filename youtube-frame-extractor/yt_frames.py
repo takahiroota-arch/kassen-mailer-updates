@@ -68,8 +68,18 @@ def require_yt_dlp():
 # --------------------------------------------------------------------------- #
 # ダウンロード
 # --------------------------------------------------------------------------- #
-def download_video(url: str, workdir: Path, max_height: int | None, ffmpeg_dir: str) -> tuple[Path, str]:
-    """動画をダウンロードして (ファイルパス, タイトル) を返す。"""
+def download_video(
+    url: str,
+    workdir: Path,
+    max_height: int | None,
+    ffmpeg_dir: str,
+    *,
+    name_by_title: bool = False,
+) -> tuple[Path, str]:
+    """動画をダウンロードして (ファイルパス, タイトル) を返す。
+
+    name_by_title=True のときはファイル名を動画タイトルにする（ダウンロード保存向け）。
+    """
     import yt_dlp
 
     if max_height:
@@ -77,7 +87,8 @@ def download_video(url: str, workdir: Path, max_height: int | None, ffmpeg_dir: 
     else:
         fmt = "bestvideo+bestaudio/best"
 
-    outtmpl = str(workdir / "%(id)s.%(ext)s")
+    stem = "%(title)s [%(id)s]" if name_by_title else "%(id)s"
+    outtmpl = str(workdir / f"{stem}.%(ext)s")
     ydl_opts = {
         "format": fmt,
         "outtmpl": outtmpl,
@@ -95,7 +106,7 @@ def download_video(url: str, workdir: Path, max_height: int | None, ffmpeg_dir: 
         filepath = Path(ydl.prepare_filename(info))
         # merge で拡張子が変わることがあるので実ファイルを探す
         if not filepath.exists():
-            candidates = list(workdir.glob(f"{info['id']}.*"))
+            candidates = list(workdir.glob(f"*{info['id']}*"))
             if candidates:
                 filepath = candidates[0]
     title = info.get("title", info.get("id", "video"))
@@ -212,6 +223,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--format", choices=["jpg", "png"], default="jpg", help="画像フォーマット (既定: jpg)")
     p.add_argument("--quality", type=int, default=90, metavar="0-100", help="画質 0〜100 (既定: 90)")
     p.add_argument("--keep-video", action="store_true", help="ダウンロードした動画ファイルを削除せず残す")
+    p.add_argument(
+        "-d",
+        "--download-only",
+        action="store_true",
+        help="フレーム抽出せず、動画ファイルのダウンロードだけ行う",
+    )
     return p
 
 
@@ -222,6 +239,16 @@ def main(argv: list[str] | None = None) -> int:
     ffmpeg = find_ffmpeg()
 
     outdir = Path(args.output_dir).expanduser().resolve()
+
+    # --- ダウンロードのみモード ------------------------------------------- #
+    if args.download_only:
+        outdir.mkdir(parents=True, exist_ok=True)
+        video, title = download_video(
+            args.url, outdir, args.max_height, ffmpeg, name_by_title=True
+        )
+        print(f"\n🎉 完了: 動画を保存しました → {video}")
+        return 0
+
     workdir = outdir / ".video"
     workdir.mkdir(parents=True, exist_ok=True)
 

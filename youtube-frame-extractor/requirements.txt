@@ -1,0 +1,6 @@
+# YouTube ダウンロード（必須）
+yt-dlp>=2024.1.0
+
+# ffmpeg の同梱バイナリ（システムに ffmpeg が無い場合に自動で使われます）
+# システムに ffmpeg が入っている場合は不要です。
+imageio-ffmpeg>=0.4.9

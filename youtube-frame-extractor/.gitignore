@@ -1,0 +1,15 @@
+# 出力・作業ファイル
+frames/
+*.mp4
+*.mkv
+*.webm
+*.jpg
+*.jpeg
+*.png
+.video/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/

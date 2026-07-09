@@ -1,6 +1,6 @@
 {
-  "version": "0.3.0",
+  "version": "0.7.0",
   "url": "https://drive.google.com/uc?export=download&id=1QWSaSYCf11Ow1fTVlDtueyp5y8EzcCMx",
-  "sha256": "c6e8001362f9c35c672236bc8672efd21c07e521ac75e3e553ded0a9a4e3b4ed",
-  "notes": "セキュリティ強化（OAuth PKCE / SSRF対策 / 鍵マスク / sandbox・CSP / ファイル権限）と、UX改善（サイドバー伸縮・アイコン化 / 削除の即時反映 / 複数選択バーのガタつき解消 / フォント調整 / Mロゴアイコン）。"
+  "sha256": "2c6655b937da4f70187f2267de9f9eccb2db8c93a8474f4d133735faa64553b3",
+  "notes": "受信の安全強化（なりすまし警告バッジ・トラッキング遮断・cid画像）＋送信前チェック＋送信予約マルチアカウント＋ASSET連携。"
 }
